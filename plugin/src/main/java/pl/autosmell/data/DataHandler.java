@@ -133,8 +133,8 @@ public class DataHandler {
 
     public void reload() {
         save();
-        plugin.
         loadConfig();
+        plugin.getPermissionManager().registerAll();
     }
 
 }
