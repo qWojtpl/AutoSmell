@@ -1,3 +1,20 @@
 config:
-  prefix: "§2[§eAS§2]";
+  prefix: "§2[§eAS§2] "
   no-permission: "§cYou don't have permission!"
+  setAutoSmell: "§aYou set autosmell to"
+  setCobblestone: "§aYou set no cobblestone to"
+  setOn: "§aOn"
+  setOff: "§cOff"
+  autoSmellPermission: "autosmell.use.smell"
+  noCobblestonePermission: "autosmell.use.cobblestone"
+  cobblestoneBlocks:
+    - TUFF
+    - COBBLESTONE
+    - STONE
+    - DEEPSLATE
+    - NETHERRACK
+    - BLACKSTONE
+    - COBBLED_DEEPSLATE
+    - ANDESITE
+    - DIORITE
+    - GRANITE

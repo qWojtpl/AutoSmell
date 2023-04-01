@@ -29,6 +29,7 @@ public final class AutoSmell extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        dataHandler.save();
         getLogger().info("Bye!");
     }
 
