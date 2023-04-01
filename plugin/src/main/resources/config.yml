@@ -7,6 +7,7 @@ config:
   setOff: "§cOff"
   autoSmellPermission: "autosmell.use.smell"
   noCobblestonePermission: "autosmell.use.cobblestone"
+  managePermission: "autosmell.manage"
   cobblestoneBlocks:
     - TUFF
     - COBBLESTONE

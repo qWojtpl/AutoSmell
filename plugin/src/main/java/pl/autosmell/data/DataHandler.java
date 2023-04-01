@@ -23,6 +23,9 @@ public class DataHandler {
     private String setCobblestone;
     private String setOn;
     private String setOff;
+    private String autoSmellPermission;
+    private String noCobblestonePermission;
+    private String managePermission;
     private final HashMap<String, Boolean> smellData = new HashMap<>();
     private final HashMap<String, Boolean> cobblestoneData = new HashMap<>();
     private final List<Material> cobblestoneBlocks = new ArrayList<>();
@@ -39,6 +42,9 @@ public class DataHandler {
         setCobblestone = yml.getString("config.setCobblestone");
         setOn = yml.getString("config.setOn");
         setOff = yml.getString("config.setOff");
+        autoSmellPermission = yml.getString("config.autoSmellPermission");
+        noCobblestonePermission = yml.getString("config.noCobblestonePermission");
+        managePermission = yml.getString("config.managePermission");
         List<String> potList = yml.getStringList("config.cobblestoneBlocks");
         for(String block : potList) {
             if(Material.getMaterial(block) == null) {
@@ -123,6 +129,12 @@ public class DataHandler {
             }
         }
         yml.save(cobblestoneFile);
+    }
+
+    public void reload() {
+        save();
+        plugin.
+        loadConfig();
     }
 
 }

@@ -18,9 +18,18 @@ public class SmellCommand implements CommandExecutor {
             sender.sendMessage(dh.getPrefix() + "§cYou must be a player!");
             return true;
         }
-        if(!sender.hasPermission(plugin.getPermissionManager().getPermission("autosmell.use.smell"))) {
+        if(!sender.hasPermission(plugin.getPermissionManager().getPermission(dh.getAutoSmellPermission()))) {
             sender.sendMessage(dh.getPrefix() + dh.getNoPermission());
             return true;
+        }
+        if(sender.hasPermission(plugin.getPermissionManager().getPermission(dh.getManagePermission()))) {
+            if(args.length > 0) {
+                if(args[0].equalsIgnoreCase("reload")) {
+                    dh.reload();
+                    sender.sendMessage(dh.getPrefix() + "§aReloaded!");
+                    return true;
+                }
+            }
         }
         boolean currentSmell = false;
         if(dh.getSmellData().containsKey(sender.getName())) {

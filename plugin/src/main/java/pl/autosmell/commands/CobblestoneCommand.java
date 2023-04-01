@@ -18,9 +18,18 @@ public class CobblestoneCommand implements CommandExecutor {
             sender.sendMessage(dh.getPrefix() + "§cYou must be a player!");
             return true;
         }
-        if(!sender.hasPermission(plugin.getPermissionManager().getPermission("autosmell.use.cobblestone"))) {
+        if(!sender.hasPermission(plugin.getPermissionManager().getPermission(dh.getNoCobblestonePermission()))) {
             sender.sendMessage(dh.getPrefix() + dh.getNoPermission());
             return true;
+        }
+        if(sender.hasPermission(plugin.getPermissionManager().getPermission(dh.getManagePermission()))) {
+            if(args.length > 0) {
+                if(args[0].equalsIgnoreCase("reload")) {
+                    dh.reload();
+                    sender.sendMessage(dh.getPrefix() + "§aReloaded!");
+                    return true;
+                }
+            }
         }
         boolean currentCobblestone = false;
         if(dh.getCobblestoneData().containsKey(sender.getName())) {
