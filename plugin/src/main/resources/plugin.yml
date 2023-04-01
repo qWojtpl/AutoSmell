@@ -1,0 +1,17 @@
+name: AutoSmell
+version: '${project.version}'
+main: pl.autosmell.AutoSmell
+api-version: 1.19
+authors: [Assasin98980]
+description: Add automatic smell and no cobblestone feature to your Minecraft server
+commands:
+  cobblestone:
+    usage: /<command>
+    description: Switch cobblestone feature
+    aliases:
+      - bruk
+  autosmell:
+    usage: /<command>
+    description: Switch autosmell feature
+    aliases:
+      - piec
