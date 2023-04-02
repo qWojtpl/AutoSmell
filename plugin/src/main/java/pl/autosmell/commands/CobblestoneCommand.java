@@ -15,6 +15,13 @@ public class CobblestoneCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!(sender instanceof Player)) {
+            if(args.length > 0) {
+                if(args[0].equalsIgnoreCase("reload")) {
+                    dh.reload();
+                    sender.sendMessage(dh.getPrefix() + "§aReloaded!");
+                    return true;
+                }
+            }
             sender.sendMessage(dh.getPrefix() + "§cYou must be a player!");
             return true;
         }
