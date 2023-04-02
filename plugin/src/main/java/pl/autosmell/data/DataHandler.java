@@ -37,7 +37,7 @@ public class DataHandler {
         }
         YamlConfiguration yml = YamlConfiguration.loadConfiguration(configFile);
         prefix = yml.getString("config.prefix");
-        noPermission = yml.getString("config.noPermission");
+        noPermission = yml.getString("config.no-permission");
         setAutosmell = yml.getString("config.setAutoSmell");
         setCobblestone = yml.getString("config.setCobblestone");
         setOn = yml.getString("config.setOn");
