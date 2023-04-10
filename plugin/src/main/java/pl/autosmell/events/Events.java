@@ -29,12 +29,10 @@ public class Events implements Listener {
         if(!player.hasPermission(plugin.getPermissionManager().getPermission(dataHandler.getNoCobblestonePermission()))) return;
         if(!dataHandler.getCobblestoneData().containsKey(player.getName())) return;
         if(!dataHandler.getCobblestoneData().get(player.getName())) return;
-        ItemStack item = player.getInventory().getItemInMainHand();
-        updateDurability(item, player);
         for(Material m : dataHandler.getCobblestoneBlocks()) {
             if(event.getBlock().getType().equals(m)) {
-                event.setCancelled(true);
-                event.getBlock().setType(Material.AIR);
+                event.setDropItems(false);
+                return;
             }
         }
     }
@@ -56,7 +54,7 @@ public class Events implements Listener {
         }
         Location blockLoc = event.getBlock().getLocation();
         Material blockType = event.getBlock().getType();
-        event.setCancelled(true);
+        event.setDropItems(false);
         if(blockType.equals(Material.ANCIENT_DEBRIS)) {
             if(hasSpace(player, Material.NETHERITE_SCRAP)) {
                 player.getInventory().addItem(new ItemStack(Material.NETHERITE_SCRAP));
@@ -88,11 +86,7 @@ public class Events implements Listener {
                 }
             }
         } else {
-            event.setCancelled(false);
-        }
-        if(event.isCancelled()) {
-            updateDurability(item, player);
-            event.getBlock().setType(Material.AIR);
+            event.setDropItems(true);
         }
     }
 
@@ -112,32 +106,6 @@ public class Events implements Listener {
             }
         }
         return false;
-    }
-
-    public void updateDurability(ItemStack item, Player player) {
-        if(item == null) return;
-        if(item.getType().equals(Material.AIR)) return;
-        int max = item.getType().getMaxDurability();
-        if(max == 0) return;
-        if(item.getItemMeta().isUnbreakable()) return;
-        int enchantmentLevel = item.getItemMeta().getEnchantLevel(Enchantment.DURABILITY);
-        if(enchantmentLevel > 0) {
-            int chance = 100 / (enchantmentLevel + 1);
-            int random = (int) Math.floor(Math.random() * (100 + 1));
-            if (random < chance) {
-                item.setDurability((short) (item.getDurability() + 1));
-                if(item.getDurability() >= max) {
-                    player.getInventory().setItem(player.getInventory().getHeldItemSlot(), new ItemStack(Material.AIR));
-                    player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
-                }
-            }
-        } else {
-            item.setDurability((short) (item.getDurability() + 1));
-            if(item.getDurability() >= max) {
-                player.getInventory().setItem(player.getInventory().getHeldItemSlot(), new ItemStack(Material.AIR));
-                player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
-            }
-        }
     }
 
 }
