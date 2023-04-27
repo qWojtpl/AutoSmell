@@ -31,6 +31,8 @@ public class DataHandler {
     private final List<Material> cobblestoneBlocks = new ArrayList<>();
 
     public void loadConfig() {
+        cobblestoneData.clear();
+        smellData.clear();
         File configFile = new File(plugin.getDataFolder(), "config.yml");
         if(!configFile.exists()) {
             plugin.saveResource("config.yml", false);
@@ -92,22 +94,13 @@ public class DataHandler {
     }
 
     public void setSmell(String playerName, boolean b) {
-        if(b) {
-            getSmellData().put(playerName, b);
-        } else {
-            getSmellData().remove(playerName);
-        }
+        getSmellData().put(playerName, b);
     }
 
     public void setCobblestone(String playerName, boolean b) {
-        if(b) {
-            getCobblestoneData().put(playerName, b);
-        } else {
-            getCobblestoneData().remove(playerName);
-        }
+        getCobblestoneData().put(playerName, b);
     }
 
-    @SneakyThrows
     public void save() {
         File smellFile = new File(plugin.getDataFolder(), "/data/smellData.yml");
         YamlConfiguration yml = YamlConfiguration.loadConfiguration(smellFile);
@@ -118,7 +111,11 @@ public class DataHandler {
                 yml.set("data." + player, null);
             }
         }
-        yml.save(smellFile);
+        try {
+            yml.save(smellFile);
+        } catch(IOException e) {
+            plugin.getLogger().severe("Cannot save smellData.yml!");
+        }
         File cobblestoneFile = new File(plugin.getDataFolder(), "/data/cobblestoneData.yml");
         yml = YamlConfiguration.loadConfiguration(cobblestoneFile);
         for(String player : getCobblestoneData().keySet()) {
@@ -128,7 +125,11 @@ public class DataHandler {
                 yml.set("data." + player, null);
             }
         }
-        yml.save(cobblestoneFile);
+        try {
+            yml.save(cobblestoneFile);
+        } catch(IOException e) {
+            plugin.getLogger().severe("Cannot save cobblestoneData.yml!");
+        }
     }
 
     public void reload() {

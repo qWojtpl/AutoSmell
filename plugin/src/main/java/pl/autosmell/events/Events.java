@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import pl.autosmell.AutoSmell;
@@ -22,7 +23,7 @@ public class Events implements Listener {
     private final AutoSmell plugin = AutoSmell.getInstance();
     private final DataHandler dataHandler = plugin.getDataHandler();
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onBreak(BlockBreakEvent event) {
         if(event.isCancelled()) return;
         Player player = event.getPlayer();
@@ -32,7 +33,7 @@ public class Events implements Listener {
         for(Material m : dataHandler.getCobblestoneBlocks()) {
             if(event.getBlock().getType().equals(m)) {
                 event.setDropItems(false);
-                return;
+                break;
             }
         }
     }
