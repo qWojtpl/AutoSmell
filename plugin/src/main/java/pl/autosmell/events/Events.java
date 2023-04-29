@@ -2,21 +2,18 @@ package pl.autosmell.events;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import pl.autosmell.AutoSmell;
 import pl.autosmell.data.DataHandler;
 
 import java.util.Collection;
-import java.util.Random;
 
 public class Events implements Listener {
 
@@ -43,10 +40,24 @@ public class Events implements Listener {
         if(event.isCancelled()) return;
         Player player = event.getPlayer();
         if(!player.hasPermission(plugin.getPermissionManager().getPermission(dataHandler.getAutoSmellPermission()))) return;
-        ItemStack item = player.getInventory().getItemInMainHand();
-        if(item.getEnchantmentLevel(Enchantment.SILK_TOUCH) > 0) return;
         if(!dataHandler.getSmellData().containsKey(player.getName())) return;
         if(!dataHandler.getSmellData().get(player.getName())) return;
+        Material blockType = event.getBlock().getType();
+        Material[] materials = new Material[]{Material.ANCIENT_DEBRIS,
+                Material.IRON_ORE, Material.DEEPSLATE_IRON_ORE,
+                Material.GOLD_ORE, Material.DEEPSLATE_GOLD_ORE,
+                Material.COPPER_ORE, Material.DEEPSLATE_COPPER_ORE
+        };
+        boolean found = false;
+        for(Material m : materials) {
+            if(m.equals(blockType)) {
+                found = true;
+                break;
+            }
+        }
+        if(!found) return;
+        ItemStack item = player.getInventory().getItemInMainHand();
+        if(item.getEnchantmentLevel(Enchantment.SILK_TOUCH) > 0) return;
         Collection<ItemStack> drops = event.getBlock().getDrops(item);
         if(drops.size() != 1) return;
         int count = 0;
@@ -54,7 +65,6 @@ public class Events implements Listener {
             count = drop.getAmount();
         }
         Location blockLoc = event.getBlock().getLocation();
-        Material blockType = event.getBlock().getType();
         event.setDropItems(false);
         if(blockType.equals(Material.ANCIENT_DEBRIS)) {
             if(hasSpace(player, Material.NETHERITE_SCRAP)) {
@@ -86,8 +96,6 @@ public class Events implements Listener {
                     blockLoc.getWorld().dropItem(blockLoc, new ItemStack(Material.COPPER_INGOT));
                 }
             }
-        } else {
-            event.setDropItems(true);
         }
     }
 
