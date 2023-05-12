@@ -62,8 +62,8 @@ config:
 
 # Commands & Permissions
 
-`/autosmell` - Switch autosmelling ores (gold/iron/copper ore, ancient debris)<br>
+`/autosmell` - Switch autosmelling ores (gold/iron/copper ore, ancient debris). You need to set permission in config.<br>
 `/piec` - Alias for /autosmell<br>
-`/cobblestone` - Switch no cobblestone feature (when on disables drops from blocks listed in config)<br>
+`/cobblestone` - Switch no cobblestone feature (when on disables drops from blocks listed in config). You need to set permission in config.<br>
 `/bruk` - Alias for /cobblestone<br>
-`/autosmell reload or /cobblestone reload` - Reload configuration<br>
+`/autosmell reload or /cobblestone reload` - Reload configuration. You need to set permission in config. You need to set permission in config.<br>
