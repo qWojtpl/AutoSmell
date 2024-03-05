@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://media.discordapp.net/attachments/816647374239694849/1093836714486808606/autosmell.png">
+  <img src="images/logo.png">
 </p>
 
 <br>
